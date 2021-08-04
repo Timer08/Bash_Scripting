@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "Enter the file with absolute path"
+read path
+
+if [ -n "$path" ]
+then
+        if [ -f "$path" ]
+        then
+                for names in $(cat $path | cut -d ":" -f1)
+                do
+                        echo "Name is: $names"
+                        sleep 1
+                done 
+        else
+                echo "File do not exist"
+        fi
+else
+        echo "FIle path cannot be empty or invalid"
+fi
