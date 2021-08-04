@@ -1,0 +1,38 @@
+#!/bin/bash
+
+echo "Enter the first number"
+read first
+
+echo "Enter the second number"
+read second 
+
+if [ -n "$first" ] && [ -n "$second" ]
+then
+        while [ $first -le $second ]
+        do
+                echo "First number is: $first"
+                ((first=first+1))
+                if [ $first  -le $second ]
+                then
+                        echo "New first number is $first"
+                else
+                        echo "Second number is equal or greater than first"
+                        break
+                fi
+
+        done
+elif [ -z "$first" ] && [ -z "$second" ]
+then
+        echo "Both field is empty"
+elif [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second number field empty"
+        elif [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First number field empty"
+        fi
+else
+        echo "Input might be invalid" 
+fi
