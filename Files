@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Enter the absolute path"
+read path
+
+if [ -n "$path" ]
+then
+        echo "Enter the file name"
+        read file
+        if [ -e "$path$file" ]
+        then
+                echo "File exists"
+        else
+                echo "File do not exist"
+                echo "Would you like to create a file: Y or N"
+                read answer
+                if [ "$answer" == "Y" ]
+                then
+                        echo "CReating a file"
+                        sleep 3
+                        touch $path$file
+                else
+                        echo "BYe, file not created"
+                fi
+        fi
+
+else
+        echo "Path field cannot be empty"
+fi
