@@ -27,3 +27,41 @@ then
 else
         echo "Path field cannot be empty"
 fi
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#!/bin/bash
+
+echo "Enter the absolute path"
+read path
+
+
+echo "Enter the file name"
+read file 
+
+if [ -z "$path" ] || [ -z "$file" ]
+then
+        if [ -z "$path" ] && [ -z "$file" ]
+        then
+                echo "Both field cannot be empty"
+        elif [ -n "$path" ] && [ -z "$file" ]
+        then
+                echo "File field cannot be empty"
+        else
+                echo "Path field cannot be empty"
+        fi
+elif [ -n "$path" ]  && [ -n "$file" ]
+then
+        if [ -e $path$file ]
+        then
+                if [ -d $path$file ]
+                then
+                        echo "Directory exist"
+                else
+                        echo "File exists"
+                fi
+        else
+                echo "File do not exit"
+        fi
+fi
+
