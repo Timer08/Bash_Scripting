@@ -18,3 +18,48 @@ then
 else
         echo "FIle path cannot be empty or invalid"
 fi
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+echo "Enter the path"
+read path
+
+echo "Enter the file"
+read file
+
+if [ -z "$path" ] || [ -z "$file" ]
+then
+        if [ -n "$path" ] && [ -z "$file" ]
+        then
+                echo "File field cannot be empty"
+        elif [ -z "$path" ] && [ -n "$file" ]
+        then
+                echo "Path field cannot be empty"
+        else
+                echo "Both field cannot be empty"
+        fi
+elif [ -n "$path" ] && [ -n "$file" ]
+then
+        if [ -e $path$file ]
+        then
+                if [ -d $path$file ]
+                then
+                        echo "Its a directory"
+                        echo "Exit" 
+                elif [ -f $path$file ]
+                then
+                        echo "Its a file" 
+                        sleep 2 
+                        for hrishi in $(cat $path$file | cut -d ":" -f1)
+                        do 
+                                echo "Hello: $hrishi"
+                        done
+                fi
+        fi
+
+else 
+        echo "Invalid Path"
+
+fi
+
