@@ -1,22 +1,49 @@
 #!/bin/bash
 
-echo "Enter the file with absolute path"
+echo "Enter the path"
 read path
 
-if [ -n "$path" ]
+echo "Enter the file"
+read file
+
+if [ -z "$path" ] || [ -z "$file" ]
 then
-        if [ -f "$path" ]
+        if [ -n "$path" ] && [ -z "$file" ]
         then
-                for names in $(cat $path | cut -d ":" -f1)
-                do
-                        echo "Name is: $names"
-                        sleep 1
-                done 
+                echo "File field cannot be empty"
+        elif [ -z "$path" ] && [ -n "$file" ]
+        then
+                echo "Path field cannot be empty"
         else
-                echo "File do not exist"
+                echo "Both field cannot be empty"
         fi
-else
-        echo "FIle path cannot be empty or invalid"
+elif [ -n "$path" ] && [ -n "$file" ]
+then
+        if [ -e $path$file ]
+        then
+                if [ -d $path$file ]
+                then
+                        echo "Its a directory"
+                        echo "Exit" 
+                elif [ -f $path$file ]
+                then
+                        echo "Its a file" 
+                        sleep 2 
+                        for hrishi in $(cat $path$file | cut -d ":" -f1 | sort)
+                        do
+                               if [ "$hrishi" == "root" ]
+                               then
+                                        break
+                                else
+                                        echo "Hello: $hrishi"
+                               fi
+                        done
+                fi
+        fi
+
+else 
+        echo "Invalid Path"
+
 fi
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
