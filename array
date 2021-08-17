@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Enter full name"
+read first middle last 
+
+name=($first $middle $last)
+
+
+for names in ${name[@]}
+do
+        echo "Hello: $names"
+        echo "**********************"
+done
