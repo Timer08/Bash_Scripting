@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#variables
+
+echo "*************************************"
+a=10
+echo $a
+echo "*************************************"
+b="hrishi"
+echo $b
+echo "*************************************"
+c=$(uptime)
+echo $c
+echo "*************************************"
+d=$(date | cut -d " " -f1-4)
+echo $d
+echo "*************************************"
+echo "Welcome, have nice day $LOGNAME"
+echo "*************************************"
+echo "User Identification number: $USER $(id)"
+echo "*************************************"
