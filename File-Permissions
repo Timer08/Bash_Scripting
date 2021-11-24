@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "Enter the path"
+read path
+
+echo "Enter file name"
+read file 
+
+
+if [ -z "$path" ] || [ -z "$file" ]
+then
+        if [ -n "$path" ] && [ -z "$file" ]
+        then
+                echo "File field cannot be empty"
+        elif [ -z "$path" ] && [ -n "$file" ]
+        then
+                echo " Pathfield cannot be empty"
+        else
+                echo "Both field cannot empty"
+        fi
+
+elif [ -n "$path" ] && [ -n "$file" ]
+then
+        if [ -r "$path$file" ]
+        then
+                echo "Its a read permission"
+        elif [ -w "$path$file" ]
+        then
+                echo "Its a write permission"
+        elif [ -x "$path$file" ]
+        then
+                echo "Its a Excute permission"
+        elif [ -h "$path$file" ]
+        then
+                echo "Its a symbolic link"
+        else
+                echo "Invalid file or path"
+        fi
+
+fi
+
