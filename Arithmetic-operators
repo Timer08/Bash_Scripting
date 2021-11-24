@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#ask the user to enter first number
+echo "ENter first number"                     
+read first
+
+#ask the user to enter second number
+echo "ENter second number" 
+read second 
+
+
+#if statment to check user input
+if [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -z "$first" ] && [ -z "$second" ]
+        then
+                echo "Both field cannot be empty"
+        elif [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second number cannot be empty"
+        else
+                echo "First number cannot be empty" 
+        fi
+#if statment to check user input, i.e. which number is greater
+elif [ -n "$first" ] && [ -n "$second" ]
+then
+        if [ $first -eq $second ]
+        then
+                echo "Both number are equal"
+        elif [ $first -gt $second ]
+        then
+                echo "First number greater"
+        else
+                echo "Second number greater"
+        fi
+fi
