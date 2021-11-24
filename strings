@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#Enter first string
+echo "Enter first name"
+read first
+
+#Enter first string
+echo "Enter second"
+read second 
+
+#if statement to check the user input
+if [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second field cannot be empty"
+        elif [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First field cannot be empty"
+        else
+                echo "Both field cannot be empty"
+        fi
+        
+elif [ -n "$first" ] && [ -n "$second" ]
+then
+        if [ "$first" == "$second" ]                          #both string matches or not
+        then
+                echo "String equal"
+        else
+                echo "String not equal"
+        fi
+fi
