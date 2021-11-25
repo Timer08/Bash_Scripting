@@ -1,0 +1,31 @@
+#!/bin/bash
+
+rm -rf ./sub-domains
+echo "Enter the website"
+read website 
+
+if [ -n "$website" ]
+then
+        echo "Search for sub-domains"
+        echo "Enter the keyword"
+        read keyword
+        if [ -n $keyword ]
+        then
+                echo "Download website ------"; wget -q $website
+                cat ./index.html | grep -i $keyword | cut -d "/" -f3 | grep -i ".com" | cut -d '"' -f1 | sort | uniq > ./sub-domains 
+                echo "Subdomains are saved"
+                echo "Enter Y to view or N to quit"
+                read answer
+                if [ "$answer" == "Y" ]
+                then
+                        cat sub-domains
+                else
+                        echo "Answer is N; Bye"
+                fi
+        else
+                echo "No keywokrd entger, bye"
+
+        fi
+else
+        echo "Empty string not allowed, bye"
+fi
