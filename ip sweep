@@ -1,0 +1,36 @@
+#!/bin/bash
+
+hrishi()
+{
+echo "Enter the network"
+read network 
+
+echo "Enter the first host"
+read first
+echo "ENter second host"
+read second
+}
+
+hrishi
+
+if [ -z "$network" ] || [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -z "$network" ] && ([ -n "$first" ] && [ -n "$second" ])
+        then
+                echo "Network field cannot be empty"
+        elif [ -z "$first" ] && ([ -n "$network" ] && [ -n "$second" ])
+        then
+                echo "first field cannot be empty"
+        elif [ -z "$second" ] && ([ -n "$network" ] && [ -n "$first" ])
+        then
+                echo "second field cannot be empty"
+        else
+                echo "Fields cannot be left empty"
+        fi
+elif [ -n "$network" ] && [ -n "$first" ] && [ -n "$second" ]
+then
+        for ip in $(seq $first $second)
+        do
+                ping -c 1 $network.$ip | grep "64 bytes" | cut -d " " -f4 | sort -h | uniq & 2>/dev/null
+        done
+fi
