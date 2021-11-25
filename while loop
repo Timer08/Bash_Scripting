@@ -1,0 +1,47 @@
+#!/bin/bash
+
+#function asking user input
+hrishi()
+{
+echo "Enter the first number"
+read first
+
+echo "ENter second number"
+read second
+
+}
+
+hrishi
+
+#Checking user input
+if [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First field cannot be empty"
+        elif [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second field cannot be empty"
+        else
+                echo "Both field cannot be empty"
+        fi
+# user input
+elif [ -n "$first" ] && [ -n "$second" ]
+then
+        if [ $first -lt $second ]
+        then
+                echo "*****************************"
+                echo "COngrats, first number is smaller than second"
+                echo "*****************************"
+                ans=0
+                while [ $ans -lt 50 ]
+                do
+                        ans=$((first * second))
+                        echo "Hello: $first * $second = $ans" 
+                        ((second++))
+                done
+        else
+                echo "Second number is smaller"
+                echo "Quit"
+        fi
+fi
