@@ -23,3 +23,54 @@ then
                 echo "username does not exist"
         fi
 fi
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+rm -rf /home/kali/bash-scripts/username
+rm -rf /home/kali/bash-scripts/username-1
+hrishi() {
+echo "Enter the username to find the UID number"
+read username 
+}
+main(){
+        cat /etc/passwd | cut -d ":" -f1,3 > /home/kali/bash-scripts/username
+        cat /home/kali/bash-scripts/username | grep -i "$username" > /home/kali/bash-scripts/username-1
+        if [ -s /home/kali/bash-scripts/username-1 ]
+        then
+                d=$(cat /home/kali/bash-scripts/username-1| cut -d ":" -f2)
+                echo "Username UID --> $d "
+        rm -rf /home/kali/bash-scripts/username
+        rm -rf /home/kali/bash-scripts/username-1
+        else
+                echo "username does not exist"
+        fi
+}
+hrishi
+if [ -z "$username" ]
+then
+        echo "Username field cannot be empty, try again"
+        count=0
+        try=4
+        while [ $count -le 3 ]
+        do
+                hrishi
+                ((count++))
+                ((try--))
+                while [ $try -eq 0 ]
+                do
+                        echo "Bye"
+                        break
+                done
+                echo "Chances valid to input: $try" 
+                if [ -n "$username" ]
+                then
+                        main
+                        break
+                fi
+
+        done
+elif [ -n "$username" ]
+then
+        main
+
+fi
