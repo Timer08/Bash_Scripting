@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+echo "Enter the first number"
+read first
+
+echo "Enter the second number"
+read second 
+
+if [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second number cannot be empty"
+        elif [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First number cannot be empty"
+        else
+                echo "Both field cannot be empty" 
+        fi
+elif [ -n "$first" ] && [ -n "$second" ]
+then
+        if (( $first % $second == 0 ))
+        then
+                echo "Remainder is 0"
+        else
+                echo "Remainder is odd"
+        fi
+fi
