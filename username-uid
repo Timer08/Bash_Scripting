@@ -1,0 +1,25 @@
+#!/bin/bash
+
+rm -rf /home/kali/bash-scripts/userlist
+rm -rf /home/kali/bash-scripts/userlist-1
+
+echo "Enter the username to find the UID number"
+read username 
+
+if [ -z "$username" ]
+then
+        echo "Username field cannot be empty, try again"
+elif [ -n "$username" ]
+then
+        cat /etc/passwd | cut -d ":" -f1,3 > /home/kali/bash-scripts/username
+        cat /home/kali/bash-scripts/username | grep -i "$username" > /home/kali/bash-scripts/username-1
+        if [ -s /home/kali/bash-scripts/username-1 ]
+        then
+                d=$(cat /home/kali/bash-scripts/username-1| cut -d ":" -f2)
+                echo "Username UID --> $d "
+        rm -rf /home/kali/bash-scripts/userlist
+        rm -rf /home/kali/bash-scripts/userlist-1
+        else
+                echo "username does not exist"
+        fi
+fi
