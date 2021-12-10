@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+echo "Enter the file path"
+read path
+
+if [ -z "$path" ]
+then
+        echo "Path field cannot be empty"
+elif [ -n "$path" ]
+then
+        if [ -e "$path" ]
+        then
+                if [ -h "$path" ]
+                then
+                        echo "Soft link"
+                else
+                        echo "File exit but, No soft link"
+                fi
+        else
+                echo "Invalid path"
+        fi
+fi
