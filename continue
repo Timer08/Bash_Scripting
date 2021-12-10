@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "Enter the First number"
+read first
+
+echo "ENter second number" 
+read second 
+
+if [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second field cannot be empty"
+        elif [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First field cannot be empty"
+        else
+                echo "Both field cannot be empty"
+        fi
+elif [ -n "$first" ] && [ -n "$second" ]
+then
+        echo "First number: $first"
+        echo "Second number: $second" 
+        while [ $first -le $second ]
+        do
+                echo "************************"
+                ((first++))
+                if (( $first % 2 == 0 ))
+                then
+                        continue
+                else
+                        echo "First New number is: $first"
+                fi
+        done
+fi
