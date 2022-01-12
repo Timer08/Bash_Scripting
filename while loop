@@ -45,3 +45,47 @@ then
                 echo "Quit"
         fi
 fi
+----------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+hrishi(){
+echo "Enter the first"
+read first
+
+echo "Enter second number"
+read second 
+}
+operation(){
+        ans=0
+while [ $ans -lt 100 ] && [ $ans -ne 20 ] 
+do
+        echo "*****************************"
+        ans=$((first * second))
+        echo "First number is: $first"
+        echo "Second number is $second"
+        echo "Multiplication answer is: $ans"
+        ((second++))
+done
+}
+count=1
+while [ $count -lt 3 ]
+do
+        hrishi
+        if [ -z "$first" ] || [ -z "$second" ]
+        then
+                if [ -n "$first" ] && [ -z "$second" ]
+                then
+                        echo "Second number is empty"
+                elif [ -z "$first" ] && [ -n "$second" ]
+                then
+                        echo "First number is empty"
+                else
+                        echo "Both numbers are empty"
+                fi
+        elif [ -n "$first" ] && [ -n "$second" ]
+        then
+                operation
+        fi
+        break
+done
+
