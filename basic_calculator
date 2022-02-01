@@ -1,0 +1,40 @@
+#!/bin/bash 
+
+
+echo "Enter the first number" 
+read first
+
+echo "ENter the second number" 
+read second 
+
+echo "********select*******"
+echo "1. Addition"
+echo "2. Subtraction"
+echo "3. Multiplication"
+echo "4. Remainder"
+echo "5. Quotient"
+echo "****************************"
+echo "Enter choice" 
+read choice 
+
+if (( $choice == 1 ))
+then
+        add=$(($first+$second))
+        echo "Addition of $first and $second is: $add"
+elif (( $choice == 2 ))
+then
+        sub=$(($first-$second))
+        echo "Subtract of $first and $second is: $sub"
+elif (( $choice == 3 ))
+then
+        multiply=$(($first*$second))
+        echo "Multiply of $first and $second is: $multiply"
+elif (( $choice == 4 ))
+then
+        remain=$(($first%$second))
+        echo "Remainder of $first and $second is: $remain"
+elif (( $choice == 5 ))
+then
+        quotient=$(($first/$second))
+        echo "Remainder of $first and $second is: $quotient"
+fi
