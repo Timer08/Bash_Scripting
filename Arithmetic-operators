@@ -34,3 +34,22 @@ then
                 echo "Second number greater"
         fi
 fi
+------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash 
+
+
+echo "Enter the first number" 
+read first
+
+echo "ENter the second number" 
+read second 
+
+if (( $first == $second ))
+then
+        echo "Both numbers are equal"
+elif (( $first > $second ))
+then
+        echo "First number is greater" 
+else
+        echo "Second number is greater"
+fi
