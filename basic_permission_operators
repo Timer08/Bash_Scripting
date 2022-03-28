@@ -1,0 +1,37 @@
+#!/bin/bash 
+
+echo "Enter the path"
+read path
+
+echo "Enter the file"
+read file 
+
+if [ -z "$path" ] || [ -z "$file" ]
+then
+        if [ -n "$path" ] && [ -z "$file" ]
+        then
+                echo "Filename field empty"
+        elif [ -z "$path" ] && [ -n "$file" ]
+        then
+                echo "Path field empty"
+        else
+                echo "Both field empty"
+        fi
+
+elif [ -n "$path" ] && [ -n "$file" ]
+then
+        if [ -f "$path$file" ]
+        then
+                echo "File exist. Lets check permission"
+                if [ -r "$path$file" ]
+                then
+                        echo "File with read permission" 
+                else
+                        echo "FIle with no read permission" 
+
+                fi
+        else
+                echo "File do not exist or path invalid"
+        fi
+fi
+
