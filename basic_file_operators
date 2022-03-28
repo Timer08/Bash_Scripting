@@ -1,0 +1,38 @@
+#!/bin/bash 
+
+
+echo "Enter the location: Absolute Path"
+read path
+
+echo "File Name"
+read filename
+
+if [ -z "$path" ] || [ -z "$filename" ]
+then
+        if [ -n "$path" ] && [ -z "$filename" ]
+        then
+                echo "Filename field is empty"
+        elif [ -z "$path" ] && [ -n "$filename" ]
+        then
+                echo "Path field is empty"
+        else
+                echo "Both field empty: Error" 
+        fi
+
+elif [ -n "$path" ] &&  [ -n "$filename" ]
+then
+        if [ -e "$path$filename" ]
+        then
+                if [ -f "$path$filename" ]
+                then
+                        echo "Its a file"
+                elif [ -d "$path$filename" ]
+                then
+                        echo "Its a Directory"
+                else
+                        echo "SOmething else"
+                fi
+        else
+                echo "INcoorect path & filename"
+        fi
+fi
