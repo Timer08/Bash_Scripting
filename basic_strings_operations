@@ -1,0 +1,39 @@
+#!/bin/bash 
+
+
+echo "Enter username"
+read username
+
+echo "ENter password"
+read password
+
+
+if [ -z "$username" ] || [ -z "$password" ]
+then
+        if [ -n "$username" ] && [ -z "$password" ]
+        then
+                echo "Password field cannot be empty"
+        elif [ -z "$username" ] && [ -n "$password" ]
+        then
+                echo "Username field cannot be empty"
+        else
+                echo "Both field cannot be empty"
+        fi
+elif [ -n "$username" ] && [ -n "$password" ]
+then
+        if [ "$username" == "admin" ] && [ "$password" == "password" ]
+        then
+                echo "Login success"
+        elif [ "$username" == "admin" ] && [ "$password" != "password" ]
+        then
+                echo "hello $username: Password not correct"
+        elif [ "$username" != "admin" ] && [ "$password" == "password" ]
+        then
+                echo "Username cannot found"
+        else
+                echo "Login credentials incorrect"
+        fi
+
+
+fi
+
