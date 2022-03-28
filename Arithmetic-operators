@@ -1,55 +1,53 @@
-#!/bin/bash
-
-#ask the user to enter first number
-echo "ENter first number"                     
-read first
-
-#ask the user to enter second number
-echo "ENter second number" 
-read second 
-
-
-#if statment to check user input
-if [ -z "$first" ] || [ -z "$second" ]
-then
-        if [ -z "$first" ] && [ -z "$second" ]
-        then
-                echo "Both field cannot be empty"
-        elif [ -n "$first" ] && [ -z "$second" ]
-        then
-                echo "Second number cannot be empty"
-        else
-                echo "First number cannot be empty" 
-        fi
-#if statment to check user input, i.e. which number is greater
-elif [ -n "$first" ] && [ -n "$second" ]
-then
-        if [ $first -eq $second ]
-        then
-                echo "Both number are equal"
-        elif [ $first -gt $second ]
-        then
-                echo "First number greater"
-        else
-                echo "Second number greater"
-        fi
-fi
-------------------------------------------------------------------------------------------------------------------------------------------------
 #!/bin/bash 
 
-
-echo "Enter the first number" 
+echo "Enter the first number"
 read first
 
-echo "ENter the second number" 
+
+echo "Enter the second number"
 read second 
 
-if (( $first == $second ))
+if [ -z "$first" ] || [ -z "$second" ]
 then
-        echo "Both numbers are equal"
-elif (( $first > $second ))
+        if [ -n "$first" ] && [ -z "$second" ]
+        then
+                echo "Second number is empty"
+        elif [ -z "$first" ] && [ -n "$second" ]
+        then
+                echo "First number is empty"
+        else
+                echo "Both number is empty"
+        fi
+elif [ -n "$first" ] &&  [ -n "$second" ]
 then
-        echo "First number is greater" 
-else
-        echo "Second number is greater"
+        echo "****************************************"
+        echo "Choose from below the Operations:"
+        echo "Press 1: for Addition"
+        echo "Press 2: for Subtraction"
+        echo "Press 3: for Multiplication"
+        echo "Press 4: for Remainder"
+        echo "Press 5: for Quotient"
+        read option
+        echo "****************************************"
+        if [ $option == "1" ]
+        then
+                ans=$((first+second))
+                echo "Addition of $first and $second is: $ans"
+        elif [ $option == "2" ]
+        then
+                ans=$((first-second))
+                echo "Addition of $first and $second is: $ans"
+        elif [ $option == "3" ]
+        then
+                ans=$((first*second))
+                echo "Multiplication of $first and $second is: $ans"
+        elif [ $option == "4" ]
+        then
+                ans=$((first%second))
+                echo "Remainder of $first and $second is: $ans"
+        elif [ $option == "5" ]
+        then
+                ans=$((first/second))
+                echo "Quotient of $first and $second is: $ans"
+        fi
 fi
