@@ -1,23 +1,33 @@
-#!/bin/bash
+#!/bin/bash 
 
-
-echo "Enter the file path"
+echo "Enter the file path: Absolute Path"
 read path
 
-if [ -z "$path" ]
+echo "Enter the file name"
+read filename
+
+if [ -z "$path" ] || [ -z "$filename" ]
 then
-        echo "Path field cannot be empty"
-elif [ -n "$path" ]
-then
-        if [ -e "$path" ]
+        if [ -n "$path" ] && [ -z "$filename" ]
         then
-                if [ -h "$path" ]
-                then
-                        echo "Soft link"
-                else
-                        echo "File exit but, No soft link"
-                fi
+                echo "Filename empty"
+        elif [ -z "$path" ] && [ -n "$filename" ]
+        then
+                echo "Path empty"
         else
-                echo "Invalid path"
+                echo "Both field empty"
+        fi
+elif [ -n "$path" ] && [ -n "$filename" ]
+then
+        if [ -e "$path$filename" ]
+        then
+                echo "******Checking its a soft link or not"
+                sleep 1
+                if [ -h "$path$filename" ]
+                then
+                        echo "Its a soft link"
+                else
+                        echo "Its not a soft link"
+                fi
         fi
 fi
