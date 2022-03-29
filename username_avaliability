@@ -1,0 +1,20 @@
+#!/bin/bash 
+
+echo "Enter the username for avaliability" 
+read username
+
+if [ -z "$username" ]
+then
+        echo "Username field is empty"
+elif [ -n "$username" ]
+then
+        cat /etc/passwd | cut -d ":" -f1 |  grep -w "$username" > /home/kali/bash-scripts/output
+        if [ -s /home/kali/bash-scripts/output ]
+        then
+                echo "Username found"
+                rm -rf /home/kali/bash-scripts/output
+        else
+                echo "Username not found"
+                rm -rf /home/kali/bash-scripts/output
+        fi
+fi
