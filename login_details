@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+echo "Enter the username to find login details"
+read username
+
+if [ -z $username ]
+then
+        echo "Field cannot be empty"
+elif [ -n $username ]
+then 
+        last -F | grep -v "system boot" | grep -i "$username" 1>/home/kali/bash-scripts/output 2>/dev/null
+        if [ -s /home/kali/bash-scripts/output ]
+        then
+                echo "LOgin details found"
+                cat /home/kali/bash-scripts/output
+                rm -rf /home/kali/bash-scripts/output
+        else
+                echo  "NO login details found"
+        fi
+else
+        echo "Bye"
+fi
