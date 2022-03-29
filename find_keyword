@@ -1,0 +1,48 @@
+#!/bin/bash 
+
+echo "Enter the file path: Absolute Path"
+read path
+
+echo "Enter the file name"
+read filename
+
+if [ -z "$path" ] || [ -z "$filename" ]
+then
+        if [ -n "$path" ] && [ -z "$filename" ]
+        then
+                echo "Filename empty"
+        elif [ -z "$path" ] && [ -n "$filename" ]
+        then
+                echo "Path empty"
+        else
+                echo "Both field empty"
+        fi
+
+elif [ -n "$path" ] && [ -n "$filename" ]
+then
+        if [ -f "$path$filename" ]
+        then
+                echo "****************************"
+                echo "Looking for file"
+                sleep 1
+                echo "File found"
+                echo "****************************"
+                echo "ENter the keyword you wish to find in the mentioned file" 
+                read keyword 
+                echo "***Looking for keyword***********"
+                sleep 1
+                cat $path$filename | grep -i "$keyword" > /home/kali/bash-scripts/output
+                if [ -s /home/kali/bash-scripts/output ]
+                then
+                        echo "******Keyword found*******"
+                        cat /home/kali/bash-scripts/output
+                        rm -rf /home/kali/bash-scripts/output
+                        echo "***************************"
+                else
+                        echo "keyword not found"
+                fi
+        else
+                echo "Not file found"
+        fi
+
+fi
