@@ -1,0 +1,36 @@
+#!/bin/bash 
+
+echo "Enter the path: Absolute path"
+read path
+
+echo "The number of days files need to be deleted"
+read days 
+
+if [ -z "$path" ] || [ -z "$days" ]
+then
+        if [ -n "$path" ] && [ -z "$days" ]
+        then
+                echo "Days field empty"
+        elif [ -z "$path" ] && [ -n "$days" ]
+        then
+                echo "Path field empty"
+        else
+                echo "Both field empty"
+        fi
+
+elif [ -n "$path" ] && [ -n "$days" ]
+then
+        echo "********************************"
+        echo "List all the files greater than +$days days"
+        find $path -type f -atime +$days 2>/dev/null
+        echo "********************************"
+        echo "Would you like to delete the file: Y or N"
+        read answer
+        if [ "$answer" == "Y" ]
+        then
+                find $path -type f -atime +$days -exec rm -rf {} \; 2>/dev/null
+                echo "Files deleted"
+        else
+                echo "Files not deleted"
+        fi
+fi
