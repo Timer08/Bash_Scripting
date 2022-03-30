@@ -1,0 +1,44 @@
+#!/bin/bash 
+
+rm -rf /home/kali/bash-scripts/output 
+echo "Enter the Server IP address"
+read server 
+
+echo "Enter the path: absolute path"
+read path
+
+echo "Enter the file name"
+read file
+
+if [ -z "$server" ] || [ -z "$path" ] || [ -z "$file" ]
+then
+        if ([ -n "$file" ] && [ -n "$path" ]) && [ -z "$server" ]
+        then
+                echo "server field empty"
+        elif ([ -n "$server" ] && [ -n "$path" ]) && [ -z "$file" ]
+        then
+                echo "File field empty"
+        elif ([ -n "$server" ] && [ -n "$file" ]) && [ -z "$path" ]
+        then
+                echo "Path field empty"
+        else
+                echo "Fields are empty"
+        fi
+elif [ -n "$server" ] && [ -n "$path" ] && [ -n "$file" ]
+then
+        echo "*************************************"
+        echo "Checking the connectivity to the server: $server"
+        ping -c 1 $server | grep -i "64 bytes" | cut -d " " -f4 > /home/kali/bash-scripts/output
+        if [ -s /home/kali/bash-scripts/output ]
+        then
+                echo "Sever is alive"
+                sleep 2
+                rm -rf /home/kali/bash-scripts/output
+                echo "************************************"
+                echo "Server is downloading the file via scp" 
+                scp -Crq root@$server:$path$file /home/kali/bash-scripts/output
+        else
+                echo "Server not responsing" 
+        fi
+fi
+
