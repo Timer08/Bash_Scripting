@@ -1,0 +1,51 @@
+#!/bin/bash 
+
+echo "Displaying the username in this system" 
+
+count=0
+for login in $(cat /etc/passwd | cut -d ":"  -f1)
+do
+        ((count++))
+        echo "$count $login"
+        echo "*************************"
+done
+-------------------------------------------------------------------------------------------------------------------
+#Continue 
+#!/bin/bash 
+
+echo "Displaying the username in this system" 
+
+count=0
+for login in $(cat /etc/passwd | cut -d ":"  -f1)
+do
+        ((count++))
+        if [ $count -eq 10 ]
+        then
+                continue
+        else
+                echo "$count $login"
+                echo "*************************"
+        fi
+
+done
+-------------------------------------------------------------------------------------------------------------------
+#break
+
+#!/bin/bash 
+
+echo "Displaying the username in this system" 
+
+count=0
+for login in $(cat /etc/passwd | cut -d ":"  -f1)
+do
+        ((count++))
+        if [ $count -eq 10 ]
+        then
+                break
+        else
+                echo "$count $login"
+                echo "*************************"
+        fi
+
+done
+
