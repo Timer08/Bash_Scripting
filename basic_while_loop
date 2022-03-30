@@ -1,0 +1,20 @@
+#!/bin/bash 
+
+echo "Enter the two number for multiplication"
+read number1 number2 
+
+
+ans=$((number1*number2))
+
+
+while [ $ans -lt 100 ]
+do
+        ans=$((number1*number2))
+        echo "Multiplication of $number1 $number2 is $ans"
+        ((number2++))
+        if [ $ans -eq 50 ]
+        then
+                break
+        fi
+done
+
