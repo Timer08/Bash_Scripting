@@ -79,3 +79,53 @@ then
                 echo "No hosts"
         fi
 fi
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+#!/bin/bash 
+
+rm -rf /home/kali/bash-scripts/host_alive
+
+
+echo "Enter the Network part. i.e 192.168.1."
+read network 
+
+echo "Enter the range: first host"
+read first
+
+echo "Enter the range: last host"
+read last 
+
+if [ -z "$network" ] || [ -z "$first" ] ||  [ -z "$last" ]
+then
+        if [ \( -n "$network"  -a  -n "$first" \) ] &&  [ -z "$last" ]
+        then
+                echo "Enter the range: Last host --> Field empty"
+        elif [ \( -n "$network"  -a  -n "$last" \) ] &&  [ -z "$first" ]
+        then
+                echo "Enter the range: First host --> Field empty"
+        elif [ \( -n "$first"  -a  -n "$last" \) ] &&  [ -z "$network" ]
+        then
+                echo "Enter the network --> Field empty"
+        else
+                echo "Empty fields not allowed"
+        fi
+elif [ -n "$network" ] && [ -n "$first" ] && [ -n "$last" ]
+then
+        echo "Looks like valid input"
+        echo "************************************"
+        sleep 1 
+        for host_alive in $(seq $first $last)
+        do
+        ping -c 1 $network$host_alive | grep -i "64 bytes" | cut -d " " -f4 >> /home/kali/bash-scripts/host_alive &
+done
+        sleep 5
+        if [ -s /home/kali/bash-scripts/host_alive ] 
+        then
+                cat /home/kali/bash-scripts/host_alive
+        else
+                echo "NO active host found" 
+
+        fi
+fi
+
