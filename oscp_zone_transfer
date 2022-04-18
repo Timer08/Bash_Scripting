@@ -1,0 +1,38 @@
+#!/bin/bash
+
+rm -rf /home/kali/bash-scripts/nameserver
+echo "Enter the hostname for the name server information"
+read hostname 
+
+if [ -z "$hostname" ]
+then
+        echo "Hostname field empty: NOt accepted" 
+elif [ -n "$hostname" ]
+then
+        echo "Lets look for the name server"
+        host -t ns $hostname | cut -d " " -f4 > /home/kali/bash-scripts/nameserver
+        if [ -s /home/kali/bash-scripts/nameserver ]
+        then
+                echo "***********************"
+                echo "Found hostname"
+                cat /home/kali/bash-scripts/nameserver
+                echo "Would you like to perform zone transfer: Y or N"
+                read answer 
+
+                if [ "$answer" == "Y" ]
+                then
+                        for zonetransfer in $(cat /home/kali/bash-scripts/nameserver)
+                        do
+                                echo "**********Trying*********"
+                                host -l $hostname $zonetransfer
+                        done
+                else 
+                        echo "NO zone transfer performed. Bye"
+                fi
+                        else
+                echo "Hostname not found"
+        fi
+fi
+
+rm -rf /home/kali/bash-scripts/nameserver
+    
