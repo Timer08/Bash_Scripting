@@ -1,0 +1,32 @@
+#!/bin/bash                                                                      
+                                                                              
+echo "ENter the domain namie: NO hostname"                                  
+read domain                                                              
+                                                                         
+echo "Enter the hostname file"                                           
+read hostnames                                                           
+
+if [ -z "$domain" ] || [ -z "$hostnames" ]
+then
+        if [ -n "$domain" ] $$ [ -z "$hostnames" ]
+        then
+                echo "Hostname field empty"
+        elif [ -z "$domain" ] $$ [ -n "$hostnames" ]
+        then
+                echo "Domain field empty"
+        else
+                echo "EMpty field not permitted"
+        fi
+
+elif [ -n "$domain" ] && [ -n "$hostnames" ]
+then
+        if [ -s "$hostnames" ]
+        then
+                for hosting in $(cat $hostnames )
+                do
+                        host $hosting.$domain | cut -d " " -f1,4 | grep -i ".com"
+                done
+        else
+                echo "INavlid file path"
+        fi
+fi
