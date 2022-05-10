@@ -18,3 +18,41 @@ then
                 rm -rf /home/kali/bash-scripts/output
         fi
 fi
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+echo "Enter the username"
+read username 
+
+echo "ENter the file location"
+read path
+
+if [ -z "$username" ] || [ -z "$path" ]
+then
+        if [ -n "$username" ] && [ -z "$path" ]
+        then
+                echo "File location: Field is empty"
+        elif [ -z "$username" ] && [ -n "$path" ]
+        then
+                echo "Username: Field is empty"
+        else
+                echo "both field empty" 
+        fi
+elif [ -n "$username" ] && [ -n "$path" ]
+then
+        if [ -s "$path" ]
+        then
+                cat /etc/passwd | cut -d ":"  -f1 > ./user_list
+                cat ./user_list | grep $username > ./username 
+
+                if [ -s ./username ]
+                then
+                        echo "$username found" 
+                else
+                        echo "Username not found" 
+                fi
+        fi
+fi
+
+rm -rf ./user_list
+rm -rf ./username
