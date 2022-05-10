@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "Enter the username"
+read username 
+
+echo "ENter the file location"
+read path
+
+if [ -z "$username" ] || [ -z "$path" ]
+then
+        if [ -n "$username" ] && [ -z "$path" ]
+        then
+                echo "File location: Field is empty"
+        elif [ -z "$username" ] && [ -n "$path" ]
+        then
+                echo "Username: Field is empty"
+        else
+                echo "both field empty" 
+        fi
+elif [ -n "$username" ] && [ -n "$path" ]
+then
+        if [ -s "$path" ]
+        then
+                for names in $(cat $path | cut -d ":" -f1)
+                do
+                        echo "Hello --> $names"
+                        if [ "$username" == "$names" ]
+                        then
+                                break
+                        fi
+                done
+        else
+                echo "File name not found"
+        fi
+fi
