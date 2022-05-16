@@ -34,3 +34,32 @@ then
 rm -rf /home/kali/bash-scripts/index.html
 rm -rf /home/kali/bash-scripts/sub-domains
 rm -rf /home/kali/bash-scripts/output
+---------------------------------------------------------------------------------------------------------------------------------------------
+cat index.html  | grep -i href | cut -d "/" -f3 | cut -d '"' -f1| grep -i "megacorpone" | sort -h | uniq > megacorpone
+
+
+#!/bin/bash
+
+
+echo "Enter the file location"
+read file 
+
+if [ -z "$file" ]
+then
+        echo "File location empty, Try again later"
+else
+        if [ -n "$file" ]
+        then
+                if [ -s "$file" ]
+                then
+                        for ip in $(cat $file)
+                        do
+                                host $ip | grep -i "has address" | cut -d " " -f1,4
+                                echo "**********************************"
+                        done
+                else
+                        echo "Invalid file or file empty"
+                fi
+        fi
+fi
+
