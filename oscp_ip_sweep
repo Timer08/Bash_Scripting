@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+echo "Enter the network -- 24 Subnet mask. Example 192.168.1"
+read network 
+echo "Enter first host: Range"
+read first
+echo "ENter second host: Range"
+read second 
+
+if [ -z "$network" ] || [ -z "$first" ] || [ -z "$second" ]
+then
+        if [ \( -n "$network" -a  -n "$first" \) ] && [ -z "$second" ]
+        then
+                echo "Second : Host range field empty"
+        elif [ \( -n "$network" -a  -n "$second" \) ] && [ -z "$first" ]
+        then
+                echo "First : Host range field empty"
+        elif [ \( -n "$first" -a  -n "$second" \) ] && [ -z "$network" ]
+        then
+                echo "Network Field empty"
+        else
+                echo "Field are empty, try again later"
+        fi
+
+elif [ -n "$first" ] && [ -n "$second" ] && [ -n "$network" ]
+then
+        echo "**********Check Host..sending ICMP probes***********"
+        for ip in $(seq $first $second)
+        do
+                ping -c 1 $network.$ip| grep -i "64 bytes" | cut -d " " -f4 & 
+
+        done
+fi
