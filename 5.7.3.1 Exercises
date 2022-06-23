@@ -1,0 +1,64 @@
+#!/bin/bash
+
+#delete any existing file related to this script 
+rm -rf ./host_alive                              
+
+#Enter the network portion
+echo "Enter the network part i.e. 192.168.1"
+read network
+
+#Host range: First 
+echo "Enter the First host"
+read first
+
+#Host range: last 
+echo "Enter the last host"
+read last
+
+#check the above user input, if any field missing, display an error
+if [ -z "$network" ] ||  [ -z "$first" ] || [ -z "$last" ]
+then
+        # Host range: Last field missing, display an missing field error
+        if  [ \( -n "$network" -a -n "$first" \) ] || [ -z "$last" ]
+        then
+                echo "Last host field missing" 
+ 
+        # Host range: first field missing, display an missing field error     
+        elif  [ \( -n "$network" -a -n "$last" \) ] || [ -z "$first" ]
+        then
+                echo "first host field missing" 
+                
+        #  network field missing, display an missing field error
+        elif  [ \( -n "$first" -a -n "$last" \) ] || [ -z "$network" ]
+        then
+                echo "network field missing" 
+        
+        #missing multiple fields
+        else
+                echo "MUltiple field missing. bye"
+        fi
+        
+#if the user input entered 
+elif [ -n "$network" ] &&  [ -n "$first" ] && [ -n "$last" ]
+then
+        echo "***********************************************"
+        echo "Network part: $network"
+        echo "Host range: $first -- $last " 
+        sleep 1
+        echo "Checking the number of host responds to ICMP packet"
+        
+        #for loop for ping each host range
+        for ip in $(seq $first $last)
+        do
+                #save the output in a file
+                ping -c 1 $network.$ip | grep -i "64 bytes" | cut -d " " -f4 >> ./host_alive &
+        done
+        
+        #if the file which save from above, exists and size greater than 0 bytes then display the file contents else no active hosts
+        if [ -s ./host_alive ]
+        then
+                cat ./host_alive 
+        else
+                echo "No host alive"
+        fi
+fi
