@@ -1,3 +1,5 @@
+5.7.3.1 Exercises
+
 #!/bin/bash
 
 #delete any existing file related to this script 
@@ -62,3 +64,32 @@ then
                 echo "No host alive"
         fi
 fi
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+5.7.3.1 Exercises
+
+
+#!/bin/bash
+
+echo "Enter the file path"
+read path
+
+if [ -z "$path" ]
+then
+        echo "Field is empty, bye"
+else
+        if [ -f $path ]
+        then
+                cat $path | cut -d "/" -f5 | grep -i ".js" | sort | cut  -d " " -f1 | uniq >> ./js_file
+                sleep 2
+                if [ -s ./js_file ]
+                then
+                        echo "***************File exist************"
+                        cat js_file
+                else
+                        echo "No match found"
+                fi
+        else
+                echo "No file found"
+        fi
+fi
+
