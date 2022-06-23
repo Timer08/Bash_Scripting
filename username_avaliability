@@ -56,3 +56,41 @@ fi
 
 rm -rf ./user_list
 rm -rf ./username
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+rm -rf /home/kali/bash-script/user-list
+echo "Enter the username"
+read username 
+
+if [ -z "$username" ]
+then
+        echo "Field empty not permitted" 
+else
+        echo "*************************************"
+        echo "Lets check the username" 
+        cat /etc/passwd | cut -d ":" -f1 | grep -i "$username" > ./user-list
+        if [ -s /home/kali/bash-scripts/user-list ]
+        then
+                echo "User already exists" 
+        else
+                echo "Username doesnt exist"
+                echo "Would you like to create: Y or N"
+                read answer
+                if [ $answer == "Y" ]
+                then
+                        echo "******Creating new uswer**********"
+                        echo "ENter the root password" 
+
+                        sudo useradd -s /bin/bash test1
+
+                        echo "*******Set password*********"
+                        sudo passwd $username
+                        echo "Acount ready to go"
+                else
+                        echo "Bye" 
+
+                fi
+        fi
+fi
