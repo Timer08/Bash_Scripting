@@ -94,3 +94,47 @@ else
                 fi
         fi
 fi
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+echo "Enter the username"
+read username 
+
+if [ -z "$username" ]
+then
+        echo "Username field empty bye"
+elif [ -n "$username" ]
+then
+        echo "*****Checking for the user********"
+        echo "********Enter sudo password if asked *********"
+        sudo cat /etc/passwd | cut -d ":" -f1 > ./user_list
+        if [ -s /home/kali/bash-scripts/user_list ]
+        then
+                cat ./user_list | grep -i "$username" > user
+                if [ -s /home/kali/bash-scripts/user ]
+                then
+                        echo "User found"
+                else
+                        echo "******User not found*******"
+                        echo "Would you like to create one: Y or N"
+                        read ans
+
+                        if [ $ans == "Y" ]
+                        then
+                                echo "****Creating a new user*****"
+                                echo "enter root password , if asked"
+                                sudo useradd $username 
+                                echo "**********User created*********"
+                        else
+                                echo "Bye, user not created"
+                        fi
+                fi
+        else
+                echo "File do no exit"
+        fi
+else
+        echo "Something is wrong"
+fi
+rm -rf ./user_list
+rm -rf ./user
+
